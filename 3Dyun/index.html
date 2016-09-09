@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="web前端,html设计,框架模板," />
+  <meta name="keywords" content="Html5,前端攻城狮,文艺小青年" />
 
 
 
@@ -84,30 +84,52 @@
 
 
 
-<meta name="description" content="本文用于测试html架构
+<meta name="description" content="Clouds
+		
+		
 
-link
-
-3D云">
-<meta property="og:type" content="article">
-<meta property="og:title" content="html基础方案">
-<meta property="og:url" content="http://yoursite.com/2016/09/07/基础/index.html">
+			body {
+				background-color: #326696;
+				margin: 0px;
+				overflow: hidden;
+				font-family:Monospace;
+				font-size:13px;
+				text-align:center;
+				font-weight: bold;
+				te">
+<meta property="og:type" content="website">
+<meta property="og:title" content="行于思">
+<meta property="og:url" content="http://yoursite.com/3Dyun/index.html">
 <meta property="og:site_name" content="行于思">
-<meta property="og:description" content="本文用于测试html架构
+<meta property="og:description" content="Clouds
+		
+		
 
-link
-
-3D云">
-<meta property="og:image" content="http://yoursite.com/../pillercard.gif">
-<meta property="og:updated_time" content="2016-09-09T06:40:15.158Z">
+			body {
+				background-color: #326696;
+				margin: 0px;
+				overflow: hidden;
+				font-family:Monospace;
+				font-size:13px;
+				text-align:center;
+				font-weight: bold;
+				te">
+<meta property="og:updated_time" content="2013-12-13T13:31:54.765Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="html基础方案">
-<meta name="twitter:description" content="本文用于测试html架构
+<meta name="twitter:title" content="行于思">
+<meta name="twitter:description" content="Clouds
+		
+		
 
-link
-
-3D云">
-<meta name="twitter:image" content="http://yoursite.com/../pillercard.gif">
+			body {
+				background-color: #326696;
+				margin: 0px;
+				overflow: hidden;
+				font-family:Monospace;
+				font-size:13px;
+				text-align:center;
+				font-weight: bold;
+				te">
 
 
 
@@ -128,9 +150,15 @@ link
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/09/07/基础/"/>
+  <link rel="canonical" href="http://yoursite.com/3Dyun/"/>
 
-  <title> html基础方案 | 行于思 </title>
+  <title>
+  
+
+  
+     | 行于思
+  
+</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -151,7 +179,7 @@ link
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -251,168 +279,222 @@ link
 
   <div id="posts" class="posts-expand">
     
+    
+      
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Clouds</title>
+		<meta charset="utf-8">
+		<style type="text/css">
 
-  
-  
+			body {
+				background-color: #326696;
+				margin: 0px;
+				overflow: hidden;
+				font-family:Monospace;
+				font-size:13px;
+				text-align:center;
+				font-weight: bold;
+				text-align:center;
+			}
 
-  
-  
-  
+			a {
+				color:#0078ff;
+			}
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+		</style>
+	</head>
+	<body>
+
+
+
+		<script type="text/javascript" src="js/ThreeWebGL.js"></script>
+		<script type="text/javascript" src="js/ThreeExtras.js"></script>
+
+		<script type="text/javascript" src="js/Detector.js"></script>
+		<script type="text/javascript" src="js/RequestAnimationFrame.js"></script>
+
+		<script id="vs" type="x-shader/x-vertex">
+
+			varying vec2 vUv;
+
+			void main() {
+
+				vUv = uv;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+			}
+
+		</script>
+
+		<script id="fs" type="x-shader/x-fragment">
+
+			uniform sampler2D map;
+
+			uniform vec3 fogColor;
+			uniform float fogNear;
+			uniform float fogFar;
+
+			varying vec2 vUv;
+
+			void main() {
+
+				float depth = gl_FragCoord.z / gl_FragCoord.w;
+				float fogFactor = smoothstep( fogNear, fogFar, depth );
+
+				gl_FragColor = texture2D( map, vUv );
+				gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
+				gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+
+			}
+
+		</script>
+
+		<script type="text/javascript">
+
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+			// Bg gradient
+
+			var canvas = document.createElement( 'canvas' );
+			canvas.width = 32;
+			canvas.height = window.innerHeight;
+
+			var context = canvas.getContext( '2d' );
+
+			var gradient = context.createLinearGradient( 0, 0, 0, canvas.height );
+			gradient.addColorStop(0, "#1e4877");
+			gradient.addColorStop(0.5, "#4584b4");
+
+			context.fillStyle = gradient;
+			context.fillRect(0, 0, canvas.width, canvas.height);
+
+			document.body.style.background = 'url(' + canvas.toDataURL('image/png') + ')';
+
+			// Clouds
+
+			var container;
+			var camera, scene, renderer, sky, mesh, geometry, material,
+			i, h, color, colors = [], sprite, size, x, y, z;
+
+			var mouseX = 0, mouseY = 0;
+			var start_time = new Date().getTime();
+
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+
+			init();
+			animate();
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				camera = new THREE.Camera( 30, window.innerWidth / window.innerHeight, 1, 3000 );
+				camera.position.z = 6000;
+
+				scene = new THREE.Scene();
+
+				geometry = new THREE.Geometry();
+
+				var texture = THREE.ImageUtils.loadTexture( 'cloud10.png' );
+				texture.magFilter = THREE.LinearMipMapLinearFilter;
+				texture.minFilter = THREE.LinearMipMapLinearFilter;
+
+				var fog = new THREE.Fog( 0x4584b4, - 100, 3000 );
+
+				material = new THREE.MeshShaderMaterial( {
+
+					uniforms: {
+
+						"map": { type: "t", value:2, texture: texture },
+						"fogColor" : { type: "c", value: fog.color },
+						"fogNear" : { type: "f", value: fog.near },
+						"fogFar" : { type: "f", value: fog.far },
+
+					},
+					vertexShader: document.getElementById( 'vs' ).textContent,
+					fragmentShader: document.getElementById( 'fs' ).textContent,
+					depthTest: false
+
+				} );
+
+				var plane = new THREE.Mesh( new THREE.Plane( 64, 64 ) );
+
+				for ( i = 0; i < 8000; i++ ) {
+
+					plane.position.x = Math.random() * 1000 - 500;
+					plane.position.y = - Math.random() * Math.random() * 200 - 15;
+					plane.position.z = i;
+					plane.rotation.z = Math.random() * Math.PI;
+					plane.scale.x = plane.scale.y = Math.random() * Math.random() * 1.5 + 0.5;
+
+					GeometryUtils.merge( geometry, plane );
+
+				}
+
+				mesh = new THREE.Mesh( geometry, material );
+				scene.addObject( mesh );
+
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.position.z = - 8000;
+				scene.addObject( mesh );
+
+				renderer = new THREE.WebGLRenderer( { antialias: false } );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function onDocumentMouseMove( event ) {
+
+				mouseX = ( event.clientX - windowHalfX ) * 0.25;
+				mouseY = ( event.clientY - windowHalfY ) * 0.15;
+
+			}
+
+			function onWindowResize( event ) {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+				render();
+
+			}
+
+			function render() {
+
+				position = ( ( new Date().getTime() - start_time ) * 0.03 ) % 8000;
+
+				camera.position.x += ( mouseX - camera.target.position.x ) * 0.01;
+				camera.position.y += ( - mouseY - camera.target.position.y ) * 0.01;
+				camera.position.z = - position + 8000;
+
+				camera.target.position.x = camera.position.x;
+				camera.target.position.y = camera.position.y;
+				camera.target.position.z = camera.position.z - 1000;
+
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+	</body>
+</html>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                html基础方案
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-07T11:27:10+08:00" content="2016-09-07">
-              2016-09-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/web前端/" itemprop="url" rel="index">
-                    <span itemprop="name">web前端</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/web前端/html设计/" itemprop="url" rel="index">
-                    <span itemprop="name">html设计</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-              &nbsp; | &nbsp;
-              <span class="page-pv"><i class="fa fa-file-o"></i>
-              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
-              </span>
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h3 id="本文用于测试html架构"><a href="#本文用于测试html架构" class="headerlink" title="本文用于测试html架构"></a>本文用于测试html架构</h3><p><img src="../pillercard.gif" alt="image"></p>
-<hr>
-<p><a href="../icc.html">link</a></p>
-<hr>
-<p><a href="../3Dyun/index.html">3D云</a></p>
-
-      
-    </div>
-
-    <div>
-      
-        
-<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="/source/images/wechat-qcode.jpg" alt="JuvoS wechat" style="width: 200px; max-width: 100%;"/>
-    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
-</div>
-
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/web前端/" rel="tag">#web前端</a>
-          
-            <a href="/tags/html设计/" rel="tag">#html设计</a>
-          
-            <a href="/tags/框架模板/" rel="tag">#框架模板</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/09/05/个人博客/" rel="next" title="个人博客搭建详解（Windows和Mac通用版）">
-                <i class="fa fa-chevron-left"></i> 个人博客搭建详解（Windows和Mac通用版）
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 
@@ -444,17 +526,8 @@ link
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -538,17 +611,6 @@ link
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#本文用于测试html架构"><span class="nav-number">1.</span> <span class="nav-text">本文用于测试html架构</span></a></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -668,10 +730,6 @@ link
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 
